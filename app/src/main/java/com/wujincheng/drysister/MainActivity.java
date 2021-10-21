@@ -3,14 +3,18 @@ package com.wujincheng.drysister;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "MainActivity >>> ";
     private Button showBtn;
     private ImageView showImg;
     private ArrayList<String>urls;
@@ -21,6 +25,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //设置全屏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         loader = new PictureLoader();
         bindView();
         initData();
@@ -46,17 +53,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         urls.add("http://ww2.sinaimg.cn/large/c85e4a5cgw1f62hzfvzwwj20hs0qogpo.jpg");
     }
 
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnView:
+                Toast.makeText(MainActivity.this,"已开始 加载中~~~",Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: 点击了按钮");
                 if(curPos > 9){
                     curPos = 0;
                 }
                 loader.load(showImg,urls.get(curPos));
+                Log.d(TAG, "onClick: loader.load ");
                 curPos++;
+                Log.d(TAG, "onClick: curPos ==" + curPos);
                 break;
         }
     }
