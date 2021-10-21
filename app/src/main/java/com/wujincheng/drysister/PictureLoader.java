@@ -55,7 +55,7 @@ public class PictureLoader {
                 HttpURLConnection conn =(HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setReadTimeout(10000);
-                if(conn.getResponseCode() != 200){
+                if(conn.getResponseCode() == 200){
                     InputStream in = conn.getInputStream();
                     ByteArrayOutputStream out = new ByteArrayOutputStream();
                     byte[] bytes =new byte[1024];
